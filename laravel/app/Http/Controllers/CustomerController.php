@@ -6,10 +6,10 @@ use App\Models\Customer;
 
 class CustomerController extends Controller
 {
-    public function show($id=1)
+    public function show()
     {
-        $customer = Customer::with('workers', 'orders')->findOrFail($id);
+        $customers = Customer::with('workers', 'orders')->get();
 
-        return view('customer.show', compact('customer'));
+        return view('customer.show', compact('customers'));
     }
 }
