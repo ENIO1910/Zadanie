@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [\App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
 
-//Route::get('/', function () {
-//    return view('customer_info')->name('customer.show');
-//});
+Route::put('/cars', [\App\Http\Controllers\CarController::class, 'assignCarToUser'])->name('cars.users.update');
+Route::get('/checkUserCar/{userId}', [\App\Http\Controllers\Controller::class, 'showAccountPage']);
+Route::get('/', [\App\Http\Controllers\CustomerController::class, 'show'])->name('customer.show');
+Route::get('/cars', [\App\Http\Controllers\CarController::class, 'index']);
+
