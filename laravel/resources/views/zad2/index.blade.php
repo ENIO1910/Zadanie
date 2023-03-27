@@ -42,14 +42,28 @@
 
 </table>
 <br>
-Przypisz samochód id nr:
+<label for="car_id">
+    Przypisz samochód:
+</label>
 <br>
-<input type="number" name="car_id" value="">
 
+<select name="car_id" id="car_id">
+    @foreach($cars as $car)
+        <option value="{{$car->id}}">{{$car->brand}} {{$car->model}} {{$car->year}}</option>
+    @endforeach
+</select>
 <br>
-Przypisz samochód użytkownikowi o id nr:
+
+<label for="user_id">
+    Przypisz samochód użytkownikowi o nazwie:
+
+</label>
 <br>
-<input type="number" name="user_id" value="">
+<select name="user_id" id="user_id">
+    @foreach($users as $user)
+        <option value="{{$user->id}}">{{$user->name}}</option>
+    @endforeach
+</select>
 <br>
 Aby zapisać naciśnij przycisk
 <td>
@@ -64,9 +78,13 @@ Aby zapisać naciśnij przycisk
 <form action="{{ route('cars.users.check') }}" method="GET">
     Sprawdź czy do użytkownika przypisano samochód:
     <br>
-    Podaj id użytkownika:
+    Wybierz użytkownika:
     <br>
-    <input type="number" name="search_user_id" value="">
+    <select name="search_user_id" id="search_user_id">
+        @foreach($users as $user)
+            <option value="{{$user->id}}">{{$user->name}}</option>
+        @endforeach
+    </select>
     <br>
     <button type="submit">Check</button>
 </form>
