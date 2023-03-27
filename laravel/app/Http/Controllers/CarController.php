@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CarAssignedNotification;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\User;
@@ -89,6 +90,7 @@ class CarController extends Controller
         $user = User::findOrFail($request->input('user_id'));
 
         $car->user_id = $user->id;
+        $user->notify(new CarAssignedNotification($car, $user));
         $car->save();
 
         return response()->json(['message' => 'Car assigned to user successfully', 'user'=>$user->name]);
