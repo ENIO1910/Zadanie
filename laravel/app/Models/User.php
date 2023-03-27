@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->cars()->whereNotNull('user_id')->exists();
     }
 
+    public static function getAdmin()
+    {
+        return User::where('role', 'admin')->get();
+    }
+
 }

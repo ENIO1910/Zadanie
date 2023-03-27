@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\CarAssignedNotification;
+use App\Notifications\CarDisAssignedNotification;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\User;
@@ -89,12 +90,34 @@ class CarController extends Controller
         $car = Car::findOrFail($request->input('car_id'));
         $user = User::findOrFail($request->input('user_id'));
 
+        $oldUser = User::findOrFail($car->user_id);
+
+        $admins = User::getAdmin();
         $car->user_id = $user->id;
-        $user->notify(new CarAssignedNotification($car, $user));
+        foreach($admins as $admin)
+        {
+            $admin->notify(new CarAssignedNotification($car, $user));
+            if($admin->id !== $user->id){
+                $user->notify(new CarAssignedNotification($car, $user));
+            } else if ($admin->id === $oldUser->id){
+                $oldUser->notify(new CarDisAssignedNotification($car, $oldUser));
+
+            }
+        }
+        if($oldUser->id !== $user->id)
+        {
+            $oldUser->notify(new CarDisAssignedNotification($car, $oldUser));
+
+        }
+
         $car->save();
 
         return response()->json(['message' => 'Car assigned to user successfully', 'user'=>$user->name]);
     }
+
+
+
+
 
 
 

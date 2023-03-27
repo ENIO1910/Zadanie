@@ -32,6 +32,7 @@
         <td>brand</td>
         <td>model</td>
         <td>rok produkcji</td>
+        <td>użytkownik przypisany</td>
         <td>Akcja</td>
     </tr>
 
@@ -46,6 +47,7 @@
                 <td>{{ $car->brand }}</td>
                 <td>{{ $car->model }}</td>
                 <td>{{ $car->year }}</td>
+                <td>{{$car->user->name}}</td>
                 <td><a href="{{route("cars.edit", ['car_id' => $car->id])}}">Edytuj</a>
                     <form action="{{route("cars.delete")}}" method="POST" style="display:inline">
                         @csrf
