@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Worker extends Model
 {
     protected $fillable = [
-        'name', 'customer_id'
+        'name',
+        'customer_id'
     ];
 
     public function customer()
