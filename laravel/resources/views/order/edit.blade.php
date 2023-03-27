@@ -1,18 +1,18 @@
 <h1>
-    Worker create
+    Order edit
 </h1>
-<form action="{{ route('worker.create') }}" method="POST" >
+<form action="{{ route('order.update') }}" method="POST" >
     @method('POST')
     @csrf
     <label for="name">
         name:
     </label>
-    <input type="text" name="name">
+    <input type="text" name="order_id" value="{{$order->id}}">
     <br>
     <br>
     <label for="customer_id">Pracodawca:</label>
 
-    <select name="customer_id">
+    <select name="customer_id" >
         @foreach($customers as $customer)
             <option value="{{$customer->id}}">{{$customer->name}}</option>
         @endforeach

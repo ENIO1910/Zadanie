@@ -1,3 +1,6 @@
+<h1>
+    car create
+</h1>
 <form action="{{ route('cars.create') }}" method="POST" >
     @method('POST')
     @csrf

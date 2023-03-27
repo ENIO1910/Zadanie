@@ -1,3 +1,6 @@
+<h1>
+    Order create
+</h1>
 <form action="{{ route('order.create') }}" method="POST" >
     @method('POST')
     @csrf

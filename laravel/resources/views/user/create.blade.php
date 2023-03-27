@@ -1,3 +1,6 @@
+<h1>
+    User create
+</h1>
 <form action="{{ route('users.create') }}" method="POST" >
     @method('POST')
     @csrf
