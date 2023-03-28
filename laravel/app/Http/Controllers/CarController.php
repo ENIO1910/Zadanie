@@ -13,7 +13,8 @@ use Illuminate\View\View;
 class CarController extends Controller
 {
 
-    public function index(){
+    public function index()
+    {
 
         $cars = Car::all();
         $users = User::all();
@@ -30,7 +31,7 @@ class CarController extends Controller
     {
         $car = Car::findOrFail($car_id);
 
-        return view('zad2.edit', ['car'=>$car]);
+        return view('zad2.edit', ['car' => $car]);
     }
 
     public function update(Request $request)
@@ -58,6 +59,7 @@ class CarController extends Controller
         return redirect('/cars');
 
     }
+
     public function create(Request $request)
     {
 
@@ -94,31 +96,24 @@ class CarController extends Controller
 
         $admins = User::getAdmin();
         $car->user_id = $user->id;
-        foreach($admins as $admin)
-        {
+        foreach ($admins as $admin) {
             $admin->notify(new CarAssignedNotification($car, $user));
-            if($admin->id !== $user->id){
+            if ($admin->id !== $user->id) {
                 $user->notify(new CarAssignedNotification($car, $user));
-            } else if ($admin->id === $oldUser->id){
+            } else if ($admin->id === $oldUser->id) {
                 $oldUser->notify(new CarDisAssignedNotification($car, $oldUser));
 
             }
         }
-        if($oldUser->id !== $user->id)
-        {
+        if ($oldUser->id !== $user->id) {
             $oldUser->notify(new CarDisAssignedNotification($car, $oldUser));
 
         }
 
         $car->save();
 
-        return response()->json(['message' => 'Car assigned to user successfully', 'user'=>$user->name]);
+        return response()->json(['message' => 'Car assigned to user successfully', 'user' => $user->name]);
     }
-
-
-
-
-
 
 
 }

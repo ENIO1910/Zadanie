@@ -18,9 +18,44 @@ class CustomerController extends Controller
     }
     public function add()
     {
+
         return view('customer.create');
     }
 
+    public function list()
+    {
+        $customers = Customer::with('workers', 'orders')->get()->toArray();;
+
+        return $customers;
+    }
+
+
+    public function DetailsAPI($customer_id)
+    {
+
+        $customers = Customer::with('workers', 'orders')->get();
+        foreach ($customers as $customer) {
+            if($customer->id === $customer_id)
+            {
+                $customer = $customer;
+            }
+        }
+        return $customer;
+
+    }
+    public function details($customer_id)
+    {
+
+        $customers = Customer::with('workers', 'orders')->get();
+        foreach ($customers as $customer) {
+            if($customer->id === $customer_id)
+            {
+                $customer = $customer;
+            }
+        }
+        return view('customer.details', ['customer' => $customer]);
+
+    }
     public function create(Request $request)
     {
         $validatedData = $request->validate([

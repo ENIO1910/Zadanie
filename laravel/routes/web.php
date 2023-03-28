@@ -31,6 +31,7 @@
     Route::post('/customer/update', [\App\Http\Controllers\CustomerController::class, 'update'])->name('customer.update');
     Route::post('/customer/create', [\App\Http\Controllers\CustomerController::class, 'create'])->name('customer.create');
     Route::DELETE('/customer/delete', [\App\Http\Controllers\CustomerController::class, 'delete'])->name('customer.delete');
+    Route::get('/customer/{customer_id}', [\App\Http\Controllers\CustomerController::class, 'details'])->name('customer.details');
 
     Route::get('/users/add', [\App\Http\Controllers\UserController::class, 'show'])->name('users.add');
     Route::post('/users/create', [\App\Http\Controllers\UserController::class, 'create'])->name('users.create');
